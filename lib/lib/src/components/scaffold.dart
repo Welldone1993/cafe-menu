@@ -1,4 +1,6 @@
+import 'package:cafe_menu_temp/lib/src/infrastructure/routes/route_names.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../infrastructure/utils/constants.dart';
 
@@ -25,7 +27,22 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         endDrawer: widget.showEndDrawer ?? false ? _endDrawerWidget() : null,
       );
 
-  Widget _endDrawerWidget() => Drawer(child: Placeholder());
+  Widget _endDrawerWidget() => Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => Get.offAllNamed(CafeMenuRouteNames.homePage.uri),
+              child: Text('Home'),
+            ),
+            ElevatedButton(
+              onPressed: () =>
+                  Get.toNamed(CafeMenuRouteNames.firstStyleMenuPage.uri),
+              child: Text('Style 1'),
+            ),
+          ],
+        ),
+      );
 
   AppBar _appBarBody(BuildContext context) => AppBar(
         toolbarHeight: 60,
@@ -50,25 +67,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         },
       );
 
-  Widget _body() => Column(
-        children: [
-          Expanded(
-            flex: 6,
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: LayoutBuilder(
-                builder: (context, constraints) => Center(
-                  child: SizedBox(
-                    // height: constraints.maxHeight * 0.90,
-                    // width: constraints.maxWidth * 0.95,
-                    child: widget.body,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+  Widget _body() => DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) => widget.body,
+        ),
       );
 }

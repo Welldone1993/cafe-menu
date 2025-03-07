@@ -10,11 +10,7 @@ class HomePageView extends GetView<HomePageController> {
 
   @override
   Widget build(BuildContext context) => CustomScaffold(
-        body: _body(context),
         showEndDrawer: true,
-      );
-
-  Widget _body(BuildContext context) => Scaffold(
         body: SingleChildScrollView(
           child: Obx(
             () => Column(
