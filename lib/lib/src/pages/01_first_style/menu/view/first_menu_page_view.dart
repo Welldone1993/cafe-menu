@@ -6,6 +6,7 @@ import '../../../../components/scaffold.dart';
 import '../../../../infrastructure/utils/constants.dart';
 import '../controller/first_menu_controller.dart';
 import 'widget/category_chip_builder.dart';
+import 'widget/category_item.dart';
 import 'widget/search_field.dart';
 
 class FirstMenuPageView extends GetView<FirstMenuController> {
@@ -63,7 +64,9 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
                 style: _textStyle(),
               ),
             ),
+            Constants.largeVerticalSpacer,
             _searchbar(),
+            Constants.largeVerticalSpacer,
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -71,15 +74,28 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
                 style: _textStyle(),
               ),
             ),
+            Constants.largeVerticalSpacer,
             CoffeeChipSelector(
               onSelected: (value) {
-                controller.selectedCategory.value = value.id;
+                controller.selectedCategory.value = value;
                 // TODO(welldone): handle change on category
                 print(value.name);
               },
               options: controller.coffeeOptions.reversed.toList(),
-              selectedId: controller.selectedCategory.value,
+              selectedId: controller.selectedCategory.value!.id,
             ),
+            Constants.largeVerticalSpacer,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              reverse: true,
+              child: Row(
+                children: [
+                  ...controller.selectedCategory.value!.items.map(
+                    (e) => CategoryItem(item: e),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       );
