@@ -69,6 +69,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../../../infrastructure/utils/constants.dart';
+
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({
     super.key,
@@ -82,19 +84,17 @@ class SearchBarWidget extends StatefulWidget {
   final TextEditingController textController;
 
   @override
-  _SearchBarWidgetState createState() => _SearchBarWidgetState();
+  SearchBarWidgetState createState() => SearchBarWidgetState();
 }
 
-class _SearchBarWidgetState extends State<SearchBarWidget> {
-  TextEditingController _controller = TextEditingController();
-
+class SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[100], // Background color
+          color: Colors.grey[100],
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
@@ -112,16 +112,35 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           ],
         ),
         child: TextField(
-          controller: _controller,
+          controller: widget.textController,
+          textDirection: TextDirection.rtl,
+          textAlign: TextAlign.right,
           decoration: InputDecoration(
-            hintText: "Search Coffee...",
-            hintStyle: TextStyle(color: Colors.grey),
-            prefixIcon: Icon(Icons.search, color: Colors.brown),
-            // Left icon
-            suffixIcon: GestureDetector(
+            hintText: 'جستجو',
+            hintStyle: TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.w500,
+              fontFamily: Constants.iranSansFaNumFont,
+            ),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.search, color: Colors.brown),
+            ),
+            prefixIcon: GestureDetector(
               onTap: () {
-                // Handle filter button click
+                //TODO(welldone): Handle filter button click
                 print("Filter button pressed");
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'به زودی......',
+                      style: TextStyle(
+                        fontFamily: Constants.iranSansFaNumFont,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                );
               },
               child: Container(
                 margin: EdgeInsets.all(8),
