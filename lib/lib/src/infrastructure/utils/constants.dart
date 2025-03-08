@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Constants{
+class Constants {
   static const double tinySpace = 2;
   static const double smallSpace = 4;
   static const double mediumSpace = 8;
@@ -22,25 +22,28 @@ class Constants{
   static const SizedBox giantHorizontalSpacer = SizedBox(width: giantSpace);
 
   static const EdgeInsetsDirectional tinyPadding =
-  EdgeInsetsDirectional.all(tinySpace);
+      EdgeInsetsDirectional.all(tinySpace);
   static const EdgeInsetsDirectional smallPadding =
-  EdgeInsetsDirectional.all(smallSpace);
+      EdgeInsetsDirectional.all(smallSpace);
   static const EdgeInsetsDirectional mediumPadding =
-  EdgeInsetsDirectional.all(mediumSpace);
+      EdgeInsetsDirectional.all(mediumSpace);
   static const EdgeInsetsDirectional largePadding =
-  EdgeInsetsDirectional.all(largeSpace);
+      EdgeInsetsDirectional.all(largeSpace);
   static const EdgeInsetsDirectional giantPadding =
-  EdgeInsetsDirectional.all(giantSpace);
+      EdgeInsetsDirectional.all(giantSpace);
+
+  static const String iranSansFont = 'IranSans';
+  static const String iranSansFaNumFont = 'IranSansFaNum';
 
   static width(
-      final BuildContext context, {
-        double? fraction,
-      }) =>
+    final BuildContext context, {
+    double? fraction,
+  }) =>
       MediaQuery.of(context).size.width / (fraction ?? 1);
 
   static height(
-      final BuildContext context, {
-        double? fraction,
-      }) =>
+    final BuildContext context, {
+    double? fraction,
+  }) =>
       MediaQuery.of(context).size.height / (fraction ?? 1);
 }

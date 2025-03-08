@@ -14,6 +14,6 @@ class CafeMenu extends StatelessWidget {
           ...CafeMenuPages.routes,
         ],
         initialRoute: '/home',
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
       );
 }

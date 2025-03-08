@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   get: ^4.6.6
   cupertino_icons: ^1.0.8
+  octo_image: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -22,9 +23,33 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
+  uses-material-design: true
 
   assets:
       - assets/
 
-  uses-material-design: true
+  fonts:
+    - family: IranSans
+      fonts:
+        - asset: assets/fonts/iran_sans.ttf
+        - asset: assets/fonts/iran_sans_ultra_light.ttf
+          weight: 100
+        - asset: assets/fonts/iran_sans_light.ttf
+          weight: 300
+        - asset: assets/fonts/iran_sans_medium.ttf
+          weight: 500
+        - asset: assets/fonts/iran_sans_bold.ttf
+          weight: 900
+
+    - family: IranSansFaNum
+      fonts:
+        - asset: assets/fonts/iran_sans.ttf
+        - asset: assets/fonts/iran_sans_fa_num_ultra_light.ttf
+          weight: 100
+        - asset: assets/fonts/iran_sans_fa_num_light.ttf
+          weight: 300
+        - asset: assets/fonts/iran_sans_fa_num_medium.ttf
+          weight: 500
+        - asset: assets/fonts/iran_sans_fa_num_bold.ttf
+          weight: 900
 

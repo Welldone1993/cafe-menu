@@ -9,10 +9,12 @@ class CustomScaffold extends StatefulWidget {
     super.key,
     required this.body,
     this.showEndDrawer,
+    this.appbar,
   });
 
   final Widget body;
   final bool? showEndDrawer;
+  final AppBar? appbar;
 
   @override
   State<CustomScaffold> createState() => _CustomScaffoldState();
@@ -21,7 +23,7 @@ class CustomScaffold extends StatefulWidget {
 class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: _appBarBody(context),
+        appBar: widget.appbar ?? _appBarBody(context),
         body: _body(),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         endDrawer: widget.showEndDrawer ?? false ? _endDrawerWidget() : null,
