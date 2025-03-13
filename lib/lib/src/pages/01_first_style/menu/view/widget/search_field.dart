@@ -1,72 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// import '../../../../../infrastructure/utils/constants.dart';
-//
-// class CustomSearchField extends StatefulWidget {
-//   const CustomSearchField({
-//     super.key,
-//     required this.title,
-//     required this.textController,
-//     this.hint,
-//   });
-//
-//   final String title;
-//   final String? hint;
-//   final TextEditingController textController;
-//
-//   @override
-//   State<CustomSearchField> createState() => _CustomSearchFieldState();
-// }
-//
-// class _CustomSearchFieldState extends State<CustomSearchField> {
-//   @override
-//   Widget build(BuildContext context) => Padding(
-//         padding: Constants.mediumPadding,
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.end,
-//           children: [
-//             Text(
-//               widget.title,
-//               style: const TextStyle(
-//                 color: Colors.white,
-//                 fontSize: Constants.largeSpace,
-//               ),
-//             ),
-//             Constants.largeHorizontalSpacer,
-//             Expanded(
-//               child: DecoratedBox(
-//                 decoration: const BoxDecoration(
-//                   border: Border(
-//                     bottom: BorderSide(
-//                       color: Colors.white,
-//                       width: 0.5,
-//                     ),
-//                   ),
-//                 ),
-//                 child: TextFormField(
-//                   controller: widget.textController,
-//                   showCursor: true,
-//                   style: const TextStyle(color: Colors.white),
-//                   decoration: InputDecoration(
-//                       fillColor: Color(0xffF5F5F5),
-//                       hintText: widget.hint ?? "",
-//                       hintStyle: const TextStyle(
-//                         color: Colors.white54,
-//                         fontWeight: FontWeight.w100,
-//                       ),
-//                       suffixIcon: const Icon(
-//                         Icons.search_outlined,
-//                         color: Colors.white54,
-//                         size: Constants.largeSpace,
-//                       )),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-// }
-
 import 'package:flutter/material.dart';
 
 import '../../../../../infrastructure/utils/constants.dart';
@@ -129,7 +60,6 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
             prefixIcon: GestureDetector(
               onTap: () {
                 //TODO(welldone): Handle filter button click
-                print("Filter button pressed");
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(

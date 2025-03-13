@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../infrastructure/utils/constants.dart';
 import '../../model/category_view_model.dart';
 
 class CoffeeChipSelector extends StatefulWidget {
@@ -60,7 +61,7 @@ class CoffeeChipSelectorState extends State<CoffeeChipSelector> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    Constants.mediumHorizontalSpacer,
                     Icon(
                       option.icon,
                       color: isSelected ? Colors.white : Color(0xff4E3118),

@@ -23,7 +23,7 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CustomImageBuilder(
-            image: 'assets/cake.jpg',
+            image: 'logo',
             isAvatar: true,
           ),
         ),
@@ -35,15 +35,11 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
         centerTitle: true,
         actions: [
           Builder(
-            builder: (BuildContext context) {
-              return IconButton(
+            builder: (BuildContext context) => IconButton(
                 icon: const Icon(
                   Icons.menu,
                 ),
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
+                onPressed: () => Scaffold.of(context).openEndDrawer()),
           )
         ],
       );
@@ -65,7 +61,11 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
               ),
             ),
             Constants.largeVerticalSpacer,
-            _searchbar(),
+            SearchBarWidget(
+              textController: controller.searchTextController,
+              title: 'search',
+              hint: 'search text',
+            ),
             Constants.largeVerticalSpacer,
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -79,7 +79,6 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
               onSelected: (value) {
                 controller.selectedCategory.value = value;
                 // TODO(welldone): handle change on category
-                print(value.name);
               },
               options: controller.coffeeOptions.reversed.toList(),
               selectedId: controller.selectedCategory.value!.id,
@@ -98,11 +97,5 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
             )
           ],
         ),
-      );
-
-  Widget _searchbar() => SearchBarWidget(
-        textController: controller.searchTextController,
-        title: 'search',
-        hint: 'search text',
       );
 }
