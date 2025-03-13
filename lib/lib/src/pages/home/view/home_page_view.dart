@@ -16,179 +16,158 @@ class HomePageView extends GetView<HomePageController> {
             () => Column(
               children: <Widget>[
                 Stack(
+                  alignment: Alignment(0, 1.5),
                   children: <Widget>[
-                    ClipPath(
-                      clipper: MyClipper(),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        height: 300,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment(0.8, 0.0),
-                            colors: [
-                              Colors.lightBlue,
-                              Colors.lightBlueAccent[100]!,
-                            ],
-                            tileMode: TileMode.repeated,
-                          ),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 30),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    controller.item.value!.name,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            itemCake(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: ((MediaQuery.of(context).size.width - 175) / 2),
-                          top: (MediaQuery.of(context).size.height + 175) / 5),
-                      child: Hero(
-                        tag: controller.item.value!.name,
-                        child: ClipOval(
-                          child: Image.asset(
-                            controller.item.value!.imageSource,
-                            fit: BoxFit.cover,
-                            width: 175,
-                            height: 175,
-                          ),
-                        ),
-                      ),
-                    ),
+                    _headerBackground(),
+                    _itemImage(),
                   ],
                 ),
-                SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            "Quantity",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 25),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue[200],
-                              borderRadius: BorderRadius.circular(250),
-                            ),
-                            width: 100,
-                            height: 35,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(250),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: controller.remove,
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                  Obx(
-                                    () => Text(
-                                      "${controller.quantity}",
-                                      style: TextStyle(
-                                          //color: Colors.black,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 18),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(250),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: controller.add,
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text("Total amount"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Obx(() => Text("\$${controller.total}")),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[400],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                "Place Order",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 22),
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
+                Constants.xxLargeVerticalSpacer,
+                _order(),
+                Constants.xxLargeVerticalSpacer,
                 _nextAndPrevious(),
               ],
             ),
+          ),
+        ),
+      );
+
+  Widget _order() => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Quantity",
+                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 25),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[200],
+                    borderRadius: BorderRadius.circular(250),
+                  ),
+                  width: 100,
+                  height: 35,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(250),
+                          ),
+                          child: GestureDetector(
+                            onTap: controller.remove,
+                            child: Icon(
+                              Icons.remove,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                        Obx(
+                          () => Text(
+                            "${controller.quantity}",
+                            style: TextStyle(
+                              //color: Colors.black,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(250),
+                          ),
+                          child: GestureDetector(
+                            onTap: controller.add,
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Constants.mediumVerticalSpacer,
+            Text("Total amount"),
+            Constants.mediumVerticalSpacer,
+            Obx(() => Text("\$${controller.total}")),
+            Constants.xLargeVerticalSpacer,
+            _orderButton()
+          ],
+        ),
+      );
+
+  Widget _headerBackground() => ClipPath(
+        clipper: MyClipper(),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          height: 300,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment(0.8, 0.0),
+              colors: [
+                Colors.lightBlue,
+                Colors.lightBlueAccent[100]!,
+              ],
+              tileMode: TileMode.repeated,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _itemName(),
+              _itemInfo(),
+            ],
+          ),
+        ),
+      );
+
+  Widget _itemName() => Text(
+        controller.item.value!.name,
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      );
+
+  Widget _orderButton() => SizedBox(
+        height: 40,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue[400],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: Text(
+            "Place Order",
+            style: TextStyle(color: Colors.white, fontSize: 22),
+          ),
+          onPressed: () {},
+        ),
+      );
+
+  Widget _itemImage() => Hero(
+        tag: controller.item.value!.name,
+        child: ClipOval(
+          child: Image.asset(
+            controller.item.value!.imageSource,
+            fit: BoxFit.cover,
+            width: 175,
+            height: 175,
           ),
         ),
       );
@@ -234,12 +213,10 @@ class HomePageView extends GetView<HomePageController> {
         ),
       );
 
-  Widget itemCake() => Column(
+  Widget _itemInfo() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            height: 15,
-          ),
+          Constants.largeVerticalSpacer,
           Text(
             controller.item.value!.taste,
             style: TextStyle(
@@ -247,17 +224,13 @@ class HomePageView extends GetView<HomePageController> {
                 fontSize: 15,
                 color: Colors.white),
           ),
-          SizedBox(
-            height: 15,
-          ),
+          Constants.largeVerticalSpacer,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  SizedBox(
-                    width: 5,
-                  ),
+                  Constants.smallHorizontalSpacer,
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.lightBlue[100],
@@ -273,9 +246,7 @@ class HomePageView extends GetView<HomePageController> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
+                  Constants.smallHorizontalSpacer,
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.red[100],
@@ -314,15 +285,11 @@ class HomePageView extends GetView<HomePageController> {
               )
             ],
           ),
-          SizedBox(
-            height: 15,
-          ),
+          Constants.largeVerticalSpacer,
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                width: 5,
-              ),
+              Constants.smallHorizontalSpacer,
               for (var i = 0; i < controller.item.value!.rate; i++)
                 Icon(Icons.star, size: 15, color: Colors.orangeAccent),
             ],

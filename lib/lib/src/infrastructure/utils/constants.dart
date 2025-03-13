@@ -13,12 +13,16 @@ class Constants {
   static const SizedBox smallVerticalSpacer = SizedBox(height: smallSpace);
   static const SizedBox mediumVerticalSpacer = SizedBox(height: mediumSpace);
   static const SizedBox largeVerticalSpacer = SizedBox(height: largeSpace);
+  static const SizedBox xLargeVerticalSpacer = SizedBox(height: xLargeSpace);
+  static const SizedBox xxLargeVerticalSpacer = SizedBox(height: xLargeSpace);
   static const SizedBox giantVerticalSpacer = SizedBox(height: giantSpace);
 
   static const SizedBox tinyHorizontalSpacer = SizedBox(width: tinySpace);
   static const SizedBox smallHorizontalSpacer = SizedBox(width: smallSpace);
   static const SizedBox mediumHorizontalSpacer = SizedBox(width: mediumSpace);
   static const SizedBox largeHorizontalSpacer = SizedBox(width: largeSpace);
+  static const SizedBox xLargeHorizontalSpacer = SizedBox(width: xLargeSpace);
+  static const SizedBox xxLargeHorizontalSpacer = SizedBox(width: xxLargeSpace);
   static const SizedBox giantHorizontalSpacer = SizedBox(width: giantSpace);
 
   static const EdgeInsetsDirectional tinyPadding =

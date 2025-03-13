@@ -34,7 +34,9 @@ class CoffeeChipSelectorState extends State<CoffeeChipSelector> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 decoration: BoxDecoration(
-                  color: isSelected ? Color(0xff0E6B42).withValues(alpha: 0.8) : Colors.white,
+                  color: isSelected
+                      ? Color(0xff0E6B42).withValues(alpha: 0.8)
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
