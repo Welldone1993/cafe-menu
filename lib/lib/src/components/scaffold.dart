@@ -69,12 +69,20 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         },
       );
 
-  Widget _body() => DecoratedBox(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: LayoutBuilder(
-          builder: (context, constraints) => widget.body,
+  Widget _body() => LayoutBuilder(
+        builder: (context, constraints) => Padding(
+          padding: constraints.maxWidth >= 1000
+              ? EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 3)
+              : EdgeInsets.zero,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: LayoutBuilder(
+              builder: (context, constraints) => widget.body,
+            ),
+          ),
         ),
       );
 }
