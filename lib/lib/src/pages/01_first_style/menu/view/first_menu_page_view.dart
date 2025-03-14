@@ -78,7 +78,7 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
             CoffeeChipSelector(
               onSelected: (value) {
                 controller.selectedCategory.value = value;
-                // TODO(welldone): handle change on category
+                controller.getItems(value.id);
               },
               options: controller.coffeeOptions.reversed.toList(),
               selectedId: controller.selectedCategory.value!.id,
@@ -89,7 +89,7 @@ class FirstMenuPageView extends GetView<FirstMenuController> {
               reverse: true,
               child: Row(
                 children: [
-                  ...controller.selectedCategory.value!.items.map(
+                  ...controller.selectedCategoryItems.value.map(
                     (e) => CategoryItem(item: e),
                   ),
                 ],
