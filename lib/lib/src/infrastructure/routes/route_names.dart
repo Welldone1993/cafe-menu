@@ -20,4 +20,9 @@ class CafeMenuRouteNames extends Routes {
     RoutePaths.homePage + RoutePaths.firstStyleMenuPage,
     RoutePaths.firstStyleMenuPage,
   );
+
+  static const Routes secondStyleMenuPage = Routes(
+    RoutePaths.homePage + RoutePaths.secondStyleMenuPage,
+    RoutePaths.secondStyleMenuPage,
+  );
 }

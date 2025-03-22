@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
+
 import '../../pages/01_first_style/menu/common/first_menu_page_binding.dart';
 import '../../pages/01_first_style/menu/view/first_menu_page_view.dart';
+import '../../pages/02_second_style/menu/common/second_menu_page_binding.dart';
+import '../../pages/02_second_style/menu/view/second_menu_page_view.dart';
 import '../../pages/home/common/home_page_binding.dart';
 import '../../pages/home/view/home_page_view.dart';
 import 'route_names.dart';
@@ -11,14 +14,24 @@ class CafeMenuPages {
   ];
 
   static GetPage<dynamic> get _homePage => GetPage(
-      name: CafeMenuRouteNames.homePage.path,
-      page: HomePageView.new,
-      binding: HomePageBinding(),
-      children: [_firstStyleMenuPage]);
+        name: CafeMenuRouteNames.homePage.path,
+        page: HomePageView.new,
+        binding: HomePageBinding(),
+        children: [
+          _firstStyleMenuPage,
+          _secondStyleMenuPage,
+        ],
+      );
 
   static GetPage<dynamic> get _firstStyleMenuPage => GetPage(
         name: CafeMenuRouteNames.firstStyleMenuPage.path,
         page: FirstMenuPageView.new,
         binding: FirstMenuBinding(),
+      );
+
+  static GetPage<dynamic> get _secondStyleMenuPage => GetPage(
+        name: CafeMenuRouteNames.secondStyleMenuPage.path,
+        page: SecondMenuPageView.new,
+        binding: SecondMenuBinding(),
       );
 }

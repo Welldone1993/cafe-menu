@@ -42,6 +42,11 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   Get.toNamed(CafeMenuRouteNames.firstStyleMenuPage.uri),
               child: Text('Style 1'),
             ),
+            ElevatedButton(
+              onPressed: () =>
+                  Get.toNamed(CafeMenuRouteNames.secondStyleMenuPage.uri),
+              child: Text('Style 2'),
+            ),
           ],
         ),
       );
