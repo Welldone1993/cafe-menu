@@ -19,8 +19,8 @@ class SecondMenuController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    /* await getCategories();
-    await getItems(1);*/
+    await getCategories();
+    await getItems(1);
   }
 
   Future<void> getCategories() async {

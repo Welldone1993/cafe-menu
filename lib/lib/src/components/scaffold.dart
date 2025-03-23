@@ -23,8 +23,21 @@ class CustomScaffold extends StatefulWidget {
 class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: widget.appbar ?? _appBarBody(context),
-        body: _body(),
+        appBar: PreferredSize(
+          preferredSize: Size(600, 60),
+          child: Center(
+            child: SizedBox(
+              width: 600,
+              child: widget.appbar ?? _appBarBody(context),
+            ),
+          ),
+        ),
+        body: Center(
+          child: SizedBox(
+            width: 600,
+            child: _body(),
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         endDrawer: widget.showEndDrawer ?? false ? _endDrawerWidget() : null,
       );
@@ -76,17 +89,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   Widget _body() => LayoutBuilder(
         builder: (context, constraints) => Padding(
-          padding: constraints.maxWidth >= 1000
-              ? EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 3)
-              : EdgeInsets.zero,
+          padding: EdgeInsets.zero,
           child: DecoratedBox(
             decoration: const BoxDecoration(
               color: Colors.white,
             ),
-            child: LayoutBuilder(
-              builder: (context, constraints) => widget.body,
-            ),
+            child: widget.body,
           ),
         ),
       );

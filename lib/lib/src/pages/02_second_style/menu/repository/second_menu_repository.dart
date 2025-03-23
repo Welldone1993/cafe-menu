@@ -25,9 +25,24 @@ class SecondMenuPageRepository {
     ),
     CategoryViewModel(
       id: 3,
-      icon: Icons.local_cafe,
       name: "نوشیدنی‌های خاص",
-    )
+    ),
+/*    CategoryViewModel(
+      id: 4,
+      name: "نوشیدنی‌های خاص",
+    ),
+    CategoryViewModel(
+      id: 5,
+      name: "نوشیدنی‌های خاص",
+    ),
+    CategoryViewModel(
+      id: 6,
+      name: "نوشیدنی‌های خاص",
+    ),
+    CategoryViewModel(
+      id: 7,
+      name: "نوشیدنی‌های خاص",
+    ),*/
   ];
 
   final Map<int, List<CategoryItemViewModel>> _items = {

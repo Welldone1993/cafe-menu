@@ -13,45 +13,53 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        width: 180,
+        constraints: BoxConstraints(
+          minWidth: 100, // حداقل عرض آیتم
+          maxWidth: double
+              .infinity, // اجازه می‌دهد آیتم متناسب با `GridView` تنظیم شود
+        ),
         margin: Constants.mediumPadding,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
               offset: Offset(2, 2),
             ),
           ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Stack(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                  child: Image.network(
-                    item.imageUrl,
-                    height: 120,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    child: Image.asset(
+                      item.imageUrl,
+                      height: 170,
+                      width:
+                          double.infinity, // عرض تصویر متناسب با عرض `GridView`
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Positioned(
                   top: 10,
                   right: 10,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: Colors.black.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.star, color: Colors.white, size: 14),
+                        Icon(Icons.star, color: Colors.yellow, size: 14),
                         SizedBox(width: 4),
                         Text(
                           item.rating.toString(),
@@ -67,7 +75,7 @@ class CategoryItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     item.title,
