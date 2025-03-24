@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/scaffold.dart';
+import '../../../../infrastructure/routes/route_names.dart';
 import '../../../../infrastructure/utils/constants.dart';
 import '../controller/second_menu_controller.dart';
 
@@ -162,15 +163,20 @@ class SecondMenuPageView extends GetView<SecondMenuController> {
             child: GridView.builder(
               padding: const EdgeInsets.all(8.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // تعداد ستون‌ها
+                crossAxisCount: 2,
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
-                childAspectRatio: 0.9, // نسبت عرض به ارتفاع آیتم‌ها
+                childAspectRatio: 0.9,
               ),
               itemCount: controller.selectedCategoryItems.value.length,
               itemBuilder: (context, index) {
                 final item = controller.selectedCategoryItems.value[index];
-                return CategoryItem(item: item);
+                return CategoryItem(
+                    item: item,
+                    onTabDetails: () => Get.toNamed(
+                          CafeMenuRouteNames.secondStyleDetailsPage.uri,
+                          parameters: {'id': item.id.toString()},
+                        ));
               },
             ),
           )

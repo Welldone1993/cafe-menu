@@ -1,7 +1,9 @@
+import 'package:cafe_menu_temp/lib/src/pages/02_second_style/details/common/details_binding.dart';
 import 'package:get/get.dart';
 
 import '../../pages/01_first_style/menu/common/first_menu_page_binding.dart';
 import '../../pages/01_first_style/menu/view/first_menu_page_view.dart';
+import '../../pages/02_second_style/details/view/details_page_view.dart';
 import '../../pages/02_second_style/menu/common/second_menu_page_binding.dart';
 import '../../pages/02_second_style/menu/view/second_menu_page_view.dart';
 import '../../pages/home/common/home_page_binding.dart';
@@ -33,5 +35,14 @@ class CafeMenuPages {
         name: CafeMenuRouteNames.secondStyleMenuPage.path,
         page: SecondMenuPageView.new,
         binding: SecondMenuBinding(),
+        children: [
+          _secondStyleDetailsPage,
+        ],
+      );
+
+  static GetPage<dynamic> get _secondStyleDetailsPage => GetPage(
+        name: CafeMenuRouteNames.secondStyleDetailsPage.path,
+        page: DetailsPageView.new,
+        binding: DetailsBinding(),
       );
 }
