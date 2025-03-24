@@ -5,5 +5,7 @@ class RoutePaths {
   /// first Style
   static const String firstStyleMenuPage = '/first-style-menu';
   static const String secondStyleMenuPage = '/second-style-menu';
+  static const String secondStyleLoginPage = '/login-menu';
+  static const String secondStyleAdminPage = '/admin';
   static const String secondStyleDetailsPage = '/:id/details';
 }

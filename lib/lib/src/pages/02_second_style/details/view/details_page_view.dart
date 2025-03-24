@@ -53,7 +53,6 @@ class DetailsPageView extends GetView<DetailsController> {
                 borderRadius: BorderRadius.circular(12.0),
                 child: Image.asset(
                   'assets/latte.jpg',
-                  // یا مثلا: Image.network('https://...')
                   height: 300,
                   width: double.infinity,
                   fit: BoxFit.cover,
