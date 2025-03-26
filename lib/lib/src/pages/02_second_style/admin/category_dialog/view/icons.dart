@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../controller/category_dialog_controller.dart';
 
 class IconDropdown extends GetView<CategoryController> {
-  IconDropdown({super.key});
+  const IconDropdown({super.key});
 
   @override
   Widget build(BuildContext context) {

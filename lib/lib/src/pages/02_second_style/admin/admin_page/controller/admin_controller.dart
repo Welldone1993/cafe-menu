@@ -1,11 +1,13 @@
-import 'package:cafe_menu_temp/lib/src/pages/02_second_style/admin/category_dialog/models/category.dart';
+import 'package:cafe_menu_temp/lib/src/pages/02_second_style/admin/item_dialog/view/item_dialog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../../infrastructure/app_writer.dart';
 import '../../category_dialog/controller/category_dialog_controller.dart';
+import '../../category_dialog/models/category.dart';
 import '../../category_dialog/view/category_dialog_page.dart';
+import '../../item_dialog/controller/item_dialog_controller.dart';
 
 class AdminController extends GetxController {
   final emailController = TextEditingController();
@@ -20,11 +22,11 @@ class AdminController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await addCategory();
+    await updateCategory();
     super.onInit();
   }
 
-  Future<void> addCategory() async {
+  Future<void> updateCategory() async {
     coffeeOptions.clear();
     final data = await fetchCategory();
     coffeeOptions.addAll(data);
@@ -50,7 +52,19 @@ class AdminController extends GetxController {
     );
     Get.delete<CategoryController>();
     if (result != null && result) {
-      await addCategory();
+      await updateCategory();
+    }
+  }
+
+  Future<void> showAddItemDialog(BuildContext context) async {
+    Get.put(ItemController());
+    final bool? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) => ItemFormDialog(),
+    );
+    Get.delete<ItemController>();
+    if (result != null && result) {
+      //await addCategory();
     }
   }
 
@@ -68,7 +82,7 @@ class AdminController extends GetxController {
     );
     Get.delete<CategoryController>();
     if (result != null && result) {
-      await addCategory();
+      await updateCategory();
     }
   }
 
@@ -105,7 +119,7 @@ class AdminController extends GetxController {
       },
     );
     if (result) {
-      await addCategory();
+      await updateCategory();
     }
   }
 

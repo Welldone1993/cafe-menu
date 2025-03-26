@@ -7,6 +7,8 @@ class AppwriteService {
   late Storage storage;
   final String databaseId = '67e1185b000b3f4d9381';
   final String collectionCategoryId = '67e11874003ba972679c';
+  final String collectionItemId = '67e11a770030d51bac21';
+  final String bucketId = '67e3be28001c5fbed3a5';
 
   AppwriteService() {
     client = Client()

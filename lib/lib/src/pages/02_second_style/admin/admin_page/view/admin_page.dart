@@ -82,11 +82,19 @@ class AdminPage extends GetView<AdminController> {
                         options: controller.coffeeOptions.reversed.toList(),
                         selectedId: controller.selectedCategory.value?.id,
                       )),
-
-                /*  TextButton(
-                  onPressed: () => controller.showEditCategoryDialog(context),
-                  child: Text('edit category'),
-                ),*/
+                Row(
+                  children: [
+                    Text('ایتم منو'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () => controller.showAddItemDialog(context),
+                      child: Text('اضافه کردن ایتم منو'),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
