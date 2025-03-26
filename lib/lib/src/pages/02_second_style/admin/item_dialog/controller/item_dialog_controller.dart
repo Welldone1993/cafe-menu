@@ -26,6 +26,7 @@ class ItemController extends GetxController {
   Rxn<IconData> selectedIcon = Rxn();
   final ItemDto? item;
   Rxn<Uint8List> imageBytesForSave = Rxn();
+  Rxn<Uint8List> imageResult = Rxn();
   String? imageUrl;
   String? fileId;
   final List<CategoryDto> coffeeOptions = [];
@@ -33,12 +34,32 @@ class ItemController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    //await updateCategory();
+    await updateCategory();
     if (item != null) {
       titleController.text = item!.title;
-      // selectedIcon.value = item!.icon;
+      descriptionController.text = item!.description;
+      if (item!.price != null) {
+        priceController.text = item!.price.toString();
+      }
+      if (item!.categoryId != null) {
+        selectedCategory.value = coffeeOptions.firstWhere(
+          (e) => e.id == item!.categoryId,
+        );
+      }
+      if (item!.fileId != null) {
+        await fetchImageFromAppwrite(item!.fileId!);
+        fileId = item!.fileId!;
+      }
     }
     super.onInit();
+  }
+
+  Future<void> fetchImageFromAppwrite(String fileId) async {
+    imageResult.value = await appwriteService.storage.getFileView(
+      bucketId: appwriteService.bucketId,
+      fileId: fileId,
+    );
+    imageBytesForSave.value = imageResult.value;
   }
 
   Future<void> updateCategory() async {
@@ -59,7 +80,13 @@ class ItemController extends GetxController {
         .toList();
   }
 
-  void addItem() {
+  Future<void> addItem() async {
+    if (imageBytesForSave.value != null) {
+      fileId = await uploadQrImage(imageBytesForSave.value!);
+      if (fileId != null) {
+        imageUrl = getQrImageUrl(fileId!);
+      }
+    }
     addNewItem(ItemDto(
       title: titleController.text.trim(),
       id: '',
@@ -87,31 +114,47 @@ class ItemController extends GetxController {
     }
   }
 
-  void editCategory() {
+  Future<void> editItem() async {
     if (item == null) {
       showFaildSnackBar('آیتم موردنظر یافت نشد');
       return;
+    }
+    if (imageBytesForSave.value != imageResult.value) {
+      if (fileId != null) {
+        await appwriteService.storage.deleteFile(
+          bucketId: appwriteService.bucketId,
+          fileId: fileId!,
+        );
+      }
+      fileId = null;
+      imageUrl = null;
+      if (imageBytesForSave.value != null) {
+        fileId = await uploadQrImage(imageBytesForSave.value!);
+        if (fileId != null) {
+          imageUrl = getQrImageUrl(fileId!);
+        }
+      }
     }
 
     editNewCategory(ItemDto(
       title: titleController.text.trim(),
       id: item!.id,
-      description: '',
-      categoryId: '',
-      fileId: '',
-      imageUrl: '',
-      price: 0,
+      description: descriptionController.text.trim(),
+      categoryId: selectedCategory.value?.id,
+      fileId: fileId,
+      imageUrl: imageUrl,
+      price: double.tryParse(priceController.text.trim()),
       rating: 0,
     ));
   }
 
-  Future<void> editNewCategory(ItemDto category) async {
+  Future<void> editNewCategory(ItemDto item) async {
     try {
       await appwriteService.databases.updateDocument(
         databaseId: appwriteService.databaseId,
-        collectionId: appwriteService.collectionCategoryId,
-        documentId: category.id, // 👈 مقدار ID اینجا باید صحیح باشد
-        data: category.toJson(),
+        collectionId: appwriteService.collectionItemId,
+        documentId: item.id,
+        data: item.toJson(),
       );
 
       Get.back<bool>(result: true);
@@ -129,13 +172,6 @@ class ItemController extends GetxController {
       if (pickedImage != null) {
         final bytes = await pickedImage.readAsBytes();
         imageBytesForSave.value = bytes;
-
-        if (imageBytesForSave.value != null) {
-          fileId = await uploadQrImage(imageBytesForSave.value!);
-          if (fileId != null) {
-            imageUrl = getQrImageUrl(fileId!);
-          }
-        }
       } else {
         showFaildSnackBar('تصویری انتخاب نشد.');
       }

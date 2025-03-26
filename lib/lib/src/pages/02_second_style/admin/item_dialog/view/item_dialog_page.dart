@@ -37,7 +37,7 @@ class ItemFormDialog extends GetView<ItemController> {
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) => value!.isEmpty
-                              ? 'وارد کردن عنوان دسته بندی الزامی است'
+                              ? 'وارد کردن عنوان الزامی است'
                               : null,
                         ),
                         const SizedBox(height: 16),
@@ -47,6 +47,9 @@ class ItemFormDialog extends GetView<ItemController> {
                             labelText: "توضیحات",
                             border: OutlineInputBorder(),
                           ),
+                          validator: (value) => value!.isEmpty
+                              ? 'وارد کردن توضیحات الزامی است'
+                              : null,
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
@@ -105,7 +108,7 @@ class ItemFormDialog extends GetView<ItemController> {
                           onPressed: () {
                             if (controller.formKey.currentState!.validate()) {
                               controller.item != null
-                                  ? controller.editCategory()
+                                  ? controller.editItem()
                                   : controller.addItem();
                             }
                           },
