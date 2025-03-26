@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../admin/category_dialog/models/category.dart';
 import '../model/category_item_view_model.dart';
-import '../model/category_view_model.dart';
 import '../repository/second_menu_repository.dart';
 
 class SecondMenuController extends GetxController {
   final TextEditingController searchTextController = TextEditingController();
 
-  final Rxn<CategoryViewModel> selectedCategory = Rxn();
+  final Rxn<CategoryDto> selectedCategory = Rxn();
   final Rx<List<CategoryItemViewModel>> selectedCategoryItems = Rx([]);
 
-  final List<CategoryViewModel> coffeeOptions = [];
+  final List<CategoryDto> coffeeOptions = [];
   final SecondMenuPageRepository _repository = SecondMenuPageRepository();
 
   final RxBool isDataFetched = false.obs, isItemsFetched = false.obs;
@@ -19,14 +19,14 @@ class SecondMenuController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await getCategories();
-    await getItems(1);
+/*    await getCategories();
+    await getItems(1);*/
   }
 
-  Future<void> getCategories() async {
+/*  Future<void> getCategories() async {
     isDataFetched.value = false;
 
-    final List<CategoryViewModel> result = await _repository.getCategories();
+    final List<CategoryDto> result = await _repository.getCategories();
     coffeeOptions.addAll(result);
     selectedCategory.value = coffeeOptions.first;
     isDataFetched.value = true;
@@ -39,5 +39,5 @@ class SecondMenuController extends GetxController {
 
     selectedCategoryItems.value.addAll(result);
     isItemsFetched.value = true;
-  }
+  }*/
 }

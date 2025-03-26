@@ -1,47 +1,120 @@
-import 'package:appwrite/appwrite.dart';
+import 'package:cafe_menu_temp/lib/src/pages/02_second_style/admin/category_dialog/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../../infrastructure/app_writer.dart';
+import '../../category_dialog/controller/category_dialog_controller.dart';
+import '../../category_dialog/view/category_dialog_page.dart';
 
 class AdminController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final fullNameController = TextEditingController();
   final RxBool isLogin = true.obs;
-  final RxBool rememberMe = false.obs;
+  final RxBool isLoading = false.obs;
   final RxBool isPasswordVisible = false.obs;
   final formKey = GlobalKey<FormState>();
+  final List<CategoryDto> coffeeOptions = [];
+  final Rxn<CategoryDto> selectedCategory = Rxn();
 
-  Future<void> signUp(BuildContext context) async {
-    final email = emailController.text.trim();
-    final password = passwordController.text;
-    final fullName = fullNameController.text.trim();
+  @override
+  Future<void> onInit() async {
+    await addCategory();
+    super.onInit();
+  }
 
-    if (password.length <
-            8 /*||
-        !RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@\$!%*?&])[A-Za-z\d@\$!%*?&]{8,}\$')
-            .hasMatch(password)*/
-        ) {
-      _showFaildSnackBar(
-          'رمز عبور باید حداقل ۸ کاراکتر و شامل حرف، عدد و نماد باشد');
-      return;
+  Future<void> addCategory() async {
+    coffeeOptions.clear();
+    final data = await fetchCategory();
+    coffeeOptions.addAll(data);
+  }
+
+  Future<List<CategoryDto>> fetchCategory() async {
+    isLoading(true);
+    final response = await appwriteService.databases.listDocuments(
+      databaseId: appwriteService.databaseId,
+      collectionId: appwriteService.collectionCategoryId,
+    );
+    isLoading(false);
+    return response.documents
+        .map((doc) => CategoryDto.fromJson(doc.data))
+        .toList();
+  }
+
+  Future<void> showAddCategoryDialog(BuildContext context) async {
+    Get.put(CategoryController(isEdit: false.obs));
+    final bool? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) => CategoryFormDialog(),
+    );
+    Get.delete<CategoryController>();
+    if (result != null && result) {
+      await addCategory();
     }
+  }
 
-    try {
-      await appwriteService.account.create(
-        userId: ID.unique(),
-        email: email,
-        password: password,
-        name: fullName,
-      );
-      _showSuccesSnackBar('ثبت‌نام موفقیت‌آمیز بود!');
-      login(context);
-    } catch (e) {
-      _showFaildSnackBar('خطا در ثبت‌نام: $e');
-      print(e);
+  Future<void> showEditCategoryDialog({
+    required BuildContext context,
+    required CategoryDto item,
+  }) async {
+    Get.put(CategoryController(
+      isEdit: true.obs,
+      item: item,
+    ));
+    final bool? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) => CategoryFormDialog(),
+    );
+    Get.delete<CategoryController>();
+    if (result != null && result) {
+      await addCategory();
     }
+  }
+
+  Future<void> showDeleteCategoryDialog({
+    required BuildContext context,
+    required String id,
+  }) async {
+    final bool result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('حذف یک مورد'),
+          content: const Text('آیا مطمئن هستید که می خواهید حذف کنید؟'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('لغو'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await deleteCategory(id);
+
+                if (!context.mounted) return;
+
+                _showSuccesSnackBar("مورد انتخابی حذف شد");
+                Get.back(result: true);
+              },
+              child: const Text('حذف'),
+            ),
+          ],
+        );
+      },
+    );
+    if (result) {
+      await addCategory();
+    }
+  }
+
+  Future<void> deleteCategory(String documentId) async {
+    await appwriteService.databases.deleteDocument(
+      databaseId: appwriteService.databaseId,
+      collectionId: appwriteService.collectionCategoryId,
+      documentId: documentId,
+    );
   }
 
   void _showSuccesSnackBar(String message) {
@@ -64,53 +137,5 @@ class AdminController extends GetxController {
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0);
-  }
-
-  Future<void> login(BuildContext context) async {
-    final email = emailController.text.trim();
-    final password = passwordController.text;
-    try {
-      final session = await appwriteService.account
-          .createEmailPasswordSession(email: email, password: password);
-      _showSuccesSnackBar('ورود موفقیت‌آمیز بود!');
-
-      if (!context.mounted) return;
-      //context.go(RouteNames.homePage);
-
-      emailController.clear();
-      passwordController.clear();
-      fullNameController.clear();
-    } catch (e) {
-      String errorMessage = 'خطا در ورود: لطفاً دوباره تلاش کنید.';
-
-      if (e is AppwriteException) {
-        switch (e.code) {
-          case 401:
-            errorMessage = 'دسترسی غیرمجاز! لطفاً اطلاعات ورود را بررسی کنید.';
-            break;
-          case 400:
-            errorMessage = 'درخواست نامعتبر! ایمیل یا رمز عبور صحیح نیست.';
-            break;
-          case 404:
-            errorMessage = 'کاربری با این ایمیل یافت نشد.';
-            break;
-          case 429:
-            errorMessage =
-                'تعداد درخواست‌ها بیش از حد مجاز است! لطفاً بعداً تلاش کنید.';
-            break;
-          case 500:
-            errorMessage = 'خطای سرور! لطفاً بعداً تلاش کنید.';
-            break;
-          default:
-            errorMessage = 'خطای ناشناخته: ${e.message}';
-            break;
-        }
-      } else {
-        errorMessage = 'خطای غیرمنتظره رخ داد!';
-      }
-
-      _showFaildSnackBar(errorMessage);
-      print(e);
-    }
   }
 }

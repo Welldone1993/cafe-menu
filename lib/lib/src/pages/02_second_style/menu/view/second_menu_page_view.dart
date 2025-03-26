@@ -153,7 +153,7 @@ class SecondMenuPageView extends GetView<SecondMenuController> {
           CoffeeChipSelectorStyle2(
             onSelected: (value) {
               controller.selectedCategory.value = value;
-              controller.getItems(value.id);
+              //controller.getItems(int.parse(value.id));
             },
             options: controller.coffeeOptions.reversed.toList(),
             selectedId: controller.selectedCategory.value?.id,

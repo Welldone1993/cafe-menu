@@ -5,6 +5,8 @@ class AppwriteService {
   late Account account;
   late Databases databases;
   late Storage storage;
+  final String databaseId = '67e1185b000b3f4d9381';
+  final String collectionCategoryId = '67e11874003ba972679c';
 
   AppwriteService() {
     client = Client()

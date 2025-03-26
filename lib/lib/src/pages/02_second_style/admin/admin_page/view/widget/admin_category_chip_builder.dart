@@ -2,18 +2,22 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../../../admin/category_dialog/models/category.dart';
+import '../../../category_dialog/models/category.dart';
 
-class CoffeeChipSelectorStyle2 extends StatelessWidget {
+class AdminCoffeeChipSelectorStyle2 extends StatelessWidget {
   final List<CategoryDto> options;
   final String? selectedId;
   final void Function(CategoryDto item) onSelected;
+  final void Function(CategoryDto item) onDelete;
+  final void Function(CategoryDto item) onEdit;
 
-  const CoffeeChipSelectorStyle2({
+  const AdminCoffeeChipSelectorStyle2({
     super.key,
     required this.options,
     this.selectedId,
     required this.onSelected,
+    required this.onDelete,
+    required this.onEdit,
   });
 
   @override
@@ -23,7 +27,6 @@ class CoffeeChipSelectorStyle2 extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           reverse: true,
           child: Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
             children: options.map((option) {
               final bool isSelected = selectedId == option.id;
               return GestureDetector(
@@ -43,13 +46,36 @@ class CoffeeChipSelectorStyle2 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Text(
-                    option.title,
-                    style: TextStyle(
-                      color:
-                          isSelected ? Colors.white : const Color(0xff4E3118),
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    children: [
+                      Text(
+                        option.title,
+                        style: TextStyle(
+                          color: isSelected
+                              ? Colors.white
+                              : const Color(0xff4E3118),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        constraints:
+                            BoxConstraints(maxHeight: 25, maxWidth: 25),
+                        onPressed: () => onDelete(option),
+                        icon: Icon(
+                          Icons.delete,
+                          size: 14,
+                        ),
+                      ),
+                      IconButton(
+                        constraints:
+                            BoxConstraints(maxHeight: 25, maxWidth: 25),
+                        onPressed: () => onEdit(option),
+                        icon: Icon(
+                          Icons.edit,
+                          size: 14,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

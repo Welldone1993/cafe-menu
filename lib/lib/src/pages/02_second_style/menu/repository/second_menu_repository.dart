@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-
 import '../model/category_item_view_model.dart';
-import '../model/category_view_model.dart';
 
 class SecondMenuPageRepository {
-  Future<List<CategoryViewModel>> getCategories() async {
+/*  Future<List<CategoryViewModelStyle2>> getCategories() async {
     return _categories;
   }
 
@@ -12,22 +9,22 @@ class SecondMenuPageRepository {
     return _items[id] ?? [];
   }
 
-  final List<CategoryViewModel> _categories = [
-    CategoryViewModel(
+  final List<CategoryViewModelStyle2> _categories = [
+    CategoryViewModelStyle2(
       id: 1,
       icon: Icons.coffee,
       name: "قهوه داغ",
     ),
-    CategoryViewModel(
+    CategoryViewModelStyle2(
       id: 2,
       icon: Icons.coffee_maker,
       name: "قهوه سرد",
     ),
-    CategoryViewModel(
+    CategoryViewModelStyle2(
       id: 3,
       name: "نوشیدنی‌های خاص",
     ),
-/*    CategoryViewModel(
+*/ /*    CategoryViewModel(
       id: 4,
       name: "نوشیدنی‌های خاص",
     ),
@@ -42,8 +39,8 @@ class SecondMenuPageRepository {
     CategoryViewModel(
       id: 7,
       name: "نوشیدنی‌های خاص",
-    ),*/
-  ];
+    ),*/ /*
+  ];*/
 
   final Map<int, List<CategoryItemViewModel>> _items = {
     1: [

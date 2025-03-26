@@ -1,13 +1,15 @@
+/*
 import 'package:flutter/cupertino.dart';
 
-class CategoryViewModel {
+class CategoryViewModelStyle2 {
   final int id;
   final IconData? icon;
   final String name;
 
-  CategoryViewModel({
+  CategoryViewModelStyle2({
     required this.id,
     this.icon,
     required this.name,
   });
 }
+*/

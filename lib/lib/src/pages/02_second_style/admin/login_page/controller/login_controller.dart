@@ -14,6 +14,14 @@ class LoginController extends GetxController {
   final RxBool isPasswordVisible = false.obs;
   final formKey = GlobalKey<FormState>();
 
+  @override
+  Future<void> onInit() async {
+    final sessions =
+        await appwriteService.account.getSession(sessionId: 'current');
+    await appwriteService.account.deleteSession(sessionId: sessions.$id);
+    super.onInit();
+  }
+
   void _showSuccesSnackBar(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -40,13 +48,18 @@ class LoginController extends GetxController {
     isLoading(true);
     final email = emailController.text.trim();
     final password = passwordController.text;
+
+    /*   final sessions =
+        await appwriteService.account.getSession(sessionId: 'current');
+    await appwriteService.account.deleteSession(sessionId: sessions.$id);*/
+
     try {
-      final session = await appwriteService.account
+      await appwriteService.account
           .createEmailPasswordSession(email: email, password: password);
       _showSuccesSnackBar('ورود موفقیت‌آمیز بود!');
 
       if (!context.mounted) return;
-      Get.toNamed(CafeMenuRouteNames.secondStyleAdminPage.uri);
+      Get.offNamed(CafeMenuRouteNames.secondStyleAdminPage.uri);
 
       emailController.clear();
       passwordController.clear();
