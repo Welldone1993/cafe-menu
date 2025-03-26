@@ -152,36 +152,41 @@ class SecondMenuPageView extends GetView<SecondMenuController> {
                 'دسته بندی ها',
               ),
             ),
-            CoffeeChipSelectorStyle2(
-              onSelected: (value) {
-                controller.selectedCategory.value = value;
-                //controller.getItems(int.parse(value.id));
-              },
-              options: controller.coffeeOptions.reversed.toList(),
-              selectedId: controller.selectedCategory.value?.id,
-            ),
+            Obx(() => controller.isChipLoading.value
+                ? CircularProgressIndicator()
+                : CoffeeChipSelectorStyle2(
+                    onSelected: (value) {
+                      controller.selectedCategory.value = value;
+                    },
+                    options: controller.coffeeOptions.reversed.toList(),
+                    selectedId: controller.selectedCategory.value?.id,
+                  )),
             Constants.largeVerticalSpacer,
-            Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 0.9,
-                ),
-                itemCount: controller.selectedCategoryItems.value.length,
-                itemBuilder: (context, index) {
-                  final item = controller.selectedCategoryItems.value[index];
-                  return CategoryItem(
-                      item: item,
-                      onTabDetails: () => Get.toNamed(
+            Obx(() => controller.isItemLoading.value
+                ? CircularProgressIndicator()
+                : Expanded(
+                    child: GridView.builder(
+                      padding: const EdgeInsets.all(8.0),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        childAspectRatio: 0.9,
+                      ),
+                      itemCount: controller.selectedCategoryItems.value.length,
+                      itemBuilder: (context, index) {
+                        final item =
+                            controller.selectedCategoryItems.value[index];
+                        return CategoryItem(
+                          item: item,
+                          onTabDetails: () => Get.toNamed(
                             CafeMenuRouteNames.secondStyleDetailsPage.uri,
                             parameters: {'id': item.id.toString()},
-                          ));
-                },
-              ),
-            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ))
           ],
         ),
       );

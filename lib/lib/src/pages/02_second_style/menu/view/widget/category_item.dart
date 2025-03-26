@@ -1,7 +1,7 @@
+import 'package:cafe_menu_temp/lib/src/pages/02_second_style/admin/item_dialog/models/item_dto.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../infrastructure/utils/constants.dart';
-import '../../model/category_item_view_model.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
@@ -10,7 +10,7 @@ class CategoryItem extends StatelessWidget {
     required this.onTabDetails,
   });
 
-  final CategoryItemViewModel item;
+  final ItemDto item;
   final void Function() onTabDetails;
 
   @override
@@ -41,16 +41,18 @@ class CategoryItem extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      child: Image.asset(
-                        item.imageUrl,
-                        height: 170,
-                        width: double
-                            .infinity, // عرض تصویر متناسب با عرض `GridView`
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    child: item.imageUrl != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            child: Image.network(
+                              item.imageUrl != null ? item.imageUrl! : '',
+                              height: 170,
+                              width: double
+                                  .infinity, // عرض تصویر متناسب با عرض `GridView`
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Icon(Icons.image_not_supported),
                   ),
                   Positioned(
                     top: 10,
