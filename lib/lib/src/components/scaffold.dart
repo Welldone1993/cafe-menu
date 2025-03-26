@@ -57,12 +57,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             ),
             ElevatedButton(
               onPressed: () =>
-                  Get.toNamed(CafeMenuRouteNames.secondStyleMenuPage.uri),
+                  Get.offAllNamed(CafeMenuRouteNames.secondStyleMenuPage.uri),
               child: Text('Style 2'),
             ),
             ElevatedButton(
               onPressed: () =>
-                  Get.toNamed(CafeMenuRouteNames.secondStyleLoginPage.uri),
+                  Get.offAllNamed(CafeMenuRouteNames.secondStyleLoginPage.uri),
               child: Text('admin login'),
             ),
           ],

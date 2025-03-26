@@ -179,7 +179,7 @@ class SecondMenuPageView extends GetView<SecondMenuController> {
                             controller.selectedCategoryItems.value[index];
                         return CategoryItem(
                           item: item,
-                          onTabDetails: () => Get.toNamed(
+                          onTabDetails: () => Get.offAllNamed(
                             CafeMenuRouteNames.secondStyleDetailsPage.uri,
                             parameters: {'id': item.id.toString()},
                           ),
