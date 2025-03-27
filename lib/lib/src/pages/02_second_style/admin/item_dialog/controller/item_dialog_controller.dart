@@ -38,6 +38,7 @@ class ItemController extends GetxController {
     if (item != null) {
       titleController.text = item!.title;
       descriptionController.text = item!.description;
+      imageUrl = item!.imageUrl;
       if (item!.price != null) {
         priceController.text = item!.price.toString();
       }

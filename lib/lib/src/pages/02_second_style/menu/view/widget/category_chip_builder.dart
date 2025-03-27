@@ -23,7 +23,6 @@ class CoffeeChipSelectorStyle2 extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           reverse: true,
           child: Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
             children: options.map((option) {
               final bool isSelected = selectedId == option.id;
               return GestureDetector(

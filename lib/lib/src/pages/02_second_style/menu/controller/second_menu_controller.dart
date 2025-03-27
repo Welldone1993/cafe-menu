@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart' as appwrite;
 import 'package:cafe_menu_temp/lib/src/pages/02_second_style/admin/item_dialog/models/item_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class SecondMenuController extends GetxController {
   Future<void> updateCategory() async {
     coffeeOptions.clear();
     final data = await fetchCategory();
+    coffeeOptions.add(CategoryDto(title: 'همه', id: '0'));
     coffeeOptions.addAll(data);
   }
 
@@ -53,6 +55,29 @@ class SecondMenuController extends GetxController {
     final response = await appwriteService.databases.listDocuments(
       databaseId: appwriteService.databaseId,
       collectionId: appwriteService.collectionItemId,
+    );
+    isItemLoading(false);
+    return response.documents.map((doc) => ItemDto.fromJson(doc.data)).toList();
+  }
+
+  Future<void> updateItemByCategoryId(
+      {required final String categoryId}) async {
+    if (categoryId != '0') {
+      selectedCategoryItems.value.clear();
+      final data = await fetchItemByCategoryId(categoryId: categoryId);
+      selectedCategoryItems.value.addAll(data);
+    } else {
+      updateItem();
+    }
+  }
+
+  Future<List<ItemDto>> fetchItemByCategoryId(
+      {required final String categoryId}) async {
+    isItemLoading(true);
+    final response = await appwriteService.databases.listDocuments(
+      databaseId: appwriteService.databaseId,
+      collectionId: appwriteService.collectionItemId,
+      queries: [appwrite.Query.equal('categoryId', categoryId)],
     );
     isItemLoading(false);
     return response.documents.map((doc) => ItemDto.fromJson(doc.data)).toList();
